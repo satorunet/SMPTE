@@ -53,7 +53,7 @@ $(function(){
 		var play = function(){
 			var osciillatorNode = audioContext.createOscillator();
 			osciillatorNode.start = osciillatorNode.start || osciillatorNode.noteOn;
-			var frequency = parseInt(880);
+			var frequency = parseInt(1000);
 			osciillatorNode.frequency.value = frequency;
 			var gainNode = audioContext.createGain();
 			gainNode.gain.setValueAtTime(0, 0);
