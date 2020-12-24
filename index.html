@@ -1,130 +1,21 @@
 <html>
 <head>
 <title>SMPTE - 深夜テレビ試験放送のアレ</title>
-<meta name="viewport" content="width=device-width, initial-scale=0.5">
 <meta name="twitter:card" content="summary_large_image" />
 <meta property="og:image" content="https://git.satoru.net/SMPTE/SMPTE_Color_Bars_16x9.png" />
 <meta property="og:title" content="SMPTE - 深夜テレビ試験放送のアレ" />
 <meta property="og:description" content="ピー" />
+
+<meta name="viewport" content="width=device-width, initial-scale=0.5">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
-<style>
-body{
-	font-family: sans-serif; 
-	margin: 0;
-	background: url("SMPTE_Color_Bars_16x9.svg") ;
-	background-position: center;
-	-webkit-background-size: 1920px 1080px;
-	 background-size:  1920px 1080px;
-	 -webkit-animation: bgscroll 20s linear infinite;
-	 animation: bgscroll 20s linear infinite;
-	user-select: none;-webkit-user-select: none;
-
-	overflow: hidden;
-	-ms-overflow-style: none;
-	scrollbar-width: none;
-}
-
-@-webkit-keyframes bgscroll {
- 0% {background-position: 0 0;}
- 100% {background-position: 0 0px;}
-}
-
-@keyframes bgscroll {
- 0% {background-position: 0 0;}
- 100% {background-position: -1920px 1080px;}
-}
-body::-webkit-scrollbar {display:none;}
-
-</style>
 <script>
-$(function(){
 
-	var w = window.outerWidth;
-	var h = window.outerHeight;
-	$("img").css({"width":w,"height":h});
-	$("table").css("top","-"+h+"px");
+document.write('<script type=module src="main.js?'+new Date().getTime()+'"></'+'script>');
 
-	function start(){
-		beep();
-		loop();
-		timeInit();
-	}
-
-	function beep(){
-		window.AudioContext = window.AudioContext||window.webkitAudioContext;
-		var audioContext = new AudioContext();
-		var play = function(){
-			var osciillatorNode = audioContext.createOscillator();
-			osciillatorNode.start = osciillatorNode.start || osciillatorNode.noteOn;
-			var frequency = parseInt(1000);
-			osciillatorNode.frequency.value = frequency;
-			var gainNode = audioContext.createGain();
-			gainNode.gain.setValueAtTime(0, 0);
-			gainNode.gain.linearRampToValueAtTime(1, 1);
-			osciillatorNode.connect(gainNode);
-			gainNode.connect(audioContext.destination);
-			osciillatorNode.start(0);
-			return play;
-		}
-		play();
-	}
-
-	function loop(){
-		$("table").animate({top:-1080,right:-1920},{easing: "linear",duration:1000*10,complete:function(){
-			loop();
-			console.log("done");
-			$(this).css({top:0,right:0})
-		}})
-	}
-
-	var fg = $("<div class=fg style='opacity:.5;cursor:pointer;position:fixed;top:0px;left:0px;background:rgba(0,0,0,.5);" + 
-	"width:100%;height:100%;text-align:center;font-size:18pt;color:white'>" +
-	"<font style='font-size:50pt'>"+
-	'<div><i class="fas fa-play"></i> PLAY <i class="fas fa-volume-up"></i></div>'+
-	"</font>"+
-	"</div>");
-
-	fg.css("padding-top",parseInt(window.innerHeight/2) - 100);
-
-	fg
-	.on("mouseenter",function(){
-		$(this).animate({"opacity":1});
-	})
-	.on("mouseleave",function(){
-		$(this).animate({"opacity":.5});
-	})
-	$("body").append(fg);
-
-	$(window).on("orientationchange",function(){
-		$(".bg").css("top",0)
-		$("body").prepend("<font size=100>"+ $(".bg").css("top") +"</font>");
-	})
-
-	$(fg).one("click",function(){
-		$(this).fadeOut("fast");
-		start();
-	})
-
-	function timeInit(){
-		$("body").append("<div class=time style='position:fixed;top:20px;left:20px;color:white;font-size:50pt;text-shadow:#000 0px 0px 5px'></div>");
-		setInterval(function(){
-			setTime();
-		},1000);
-		setTime();
-	}
-
-	function setTime(){
-		$(".time").text(z(new Date().getHours()) + ":" + z(new Date().getMinutes()) );
-	}
-
-	function z(n){
-		return parseInt(n)<10 ? "0"+n : n;
-	}
-
-
-})
 </script>
+
 </head>
-<body bgcolor=#000></div></body>
+<body bgcolor=#000></body>
 </html>
