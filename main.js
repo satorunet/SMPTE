@@ -48,18 +48,13 @@ $(function(){
 	})
 	$("body").append(fg);
 
-	$(window).on("orientationchange",function(){
-		$(".bg").css("top",0)
-		$("body").prepend("<font size=100>"+ $(".bg").css("top") +"</font>");
-	})
-
 	$(fg).one("click",function(){
 		$(this).fadeOut("fast");
 		play_pressed();
 	})
 
 	function timeInit(){
-		$("body").append("<div class=time style='z-index:3;position:fixed;top:20px;left:20px;color:white;font-size:50pt;text-shadow:#000 0px 0px 5px'></div>");
+		$("body").append("<div class=time style='z-index:3;position:fixed;top:20px;left:20px;color:white;font-size:80pt;text-shadow:#000 0px 0px 5px'></div>");
 		setInterval(function(){
 			setTime();
 		},1000);
